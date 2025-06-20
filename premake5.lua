@@ -13,14 +13,15 @@ project "Hazel"
 	location "Hazel"
 	kind "SharedLib"
 	language "C++"
+	buildoptions { "/utf-8" }
  
-	targetdir("bin/" ..outputdir .. "/%{prj.name}")
-	objdir("bin-int/" ..outputdir .. "/%{prj.name}")
+	targetdir("bin/" .. outputdir .. "/%{prj.name}")
+	objdir("bin-int/" .. outputdir .. "/%{prj.name}")
 
 	files
 	{
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/src/**.cpp"
 	}
 
 	includedirs 
@@ -31,7 +32,7 @@ project "Hazel"
 	filter "system:windows"
 		cppdialect "C++17"
 		staticruntime "On"
-		systemversion "latest"
+		systemversion "10.0"
 
 		defines
 		{
@@ -41,9 +42,11 @@ project "Hazel"
 
 		postbuildcommands
 		{
-			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
+			("{MKDIR} ../bin/" ..outputdir .."/Sandbox"), 
+			("{COPYFILE} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
 		}
-	
+		
+		
 	filter "configurations:Debug"
 		defines "HZ_DEBUG"
 		optimize "On"
@@ -60,6 +63,7 @@ project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
+	buildoptions { "/utf-8" }
 
 	targetdir("bin/" ..outputdir .. "/%{prj.name}")
 	objdir("bin-int/" ..outputdir .. "/%{prj.name}")
@@ -84,7 +88,7 @@ project "Sandbox"
 	filter "system:windows"
 		cppdialect "C++17"
 		staticruntime "On"
-		systemversion "latest"
+		systemversion "10.0"
 
 		defines
 		{
