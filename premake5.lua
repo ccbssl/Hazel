@@ -18,6 +18,10 @@ project "Hazel"
 	targetdir("bin/" .. outputdir .. "/%{prj.name}")
 	objdir("bin-int/" .. outputdir .. "/%{prj.name}")
 
+	-- 预编译头 
+	pchheader "hzpch.h"
+	pchsource "Hazel/src/hzpch.cpp"
+	
 	files
 	{
 		"%{prj.name}/src/**.h",
