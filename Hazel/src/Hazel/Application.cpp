@@ -3,7 +3,6 @@
 #include "Application.h"
 
 #include"Hazel/Events/ApplicationEvent.h"
-#include"Hazel/Log.h"
 
 namespace Hazel {
 
