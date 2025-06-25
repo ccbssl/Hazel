@@ -9,9 +9,10 @@ workspace "Hazel"
 
 outputdir="%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
--- Include directories relative to root folder(solution directory)
-IncludeDir={}
-IncludeDir["GLFW"]="Hazel/vendor/GLFW/include"
+
+-- Include directories relative to root folder (solution directory)
+IncludeDir = {}
+IncludeDir["GLFW"] = "Hazel/vendor/GLFW/include"
 
 include "Hazel/vendor/GLFW"
 
@@ -34,7 +35,7 @@ project "Hazel"
 		"%{prj.name}/src/**.cpp"
 	}
 
-	includedirs 
+	includedirs
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
@@ -43,8 +44,9 @@ project "Hazel"
 
 	links 
 	{
-		 "GLFW",
-		 "openg132.lib"
+		"GLFW",
+		"opengl32.lib",
+		"dwmapi.lib"
 	}
 
 	filter "system:windows"
@@ -95,12 +97,13 @@ project "Sandbox"
 	includedirs 
 	{
 		"Hazel/vendor/spdlog/include",
-		"Hazel/src"
+		"Hazel/src",
+		"Hazel/src/Hazel"
 	}
 
 	links 
 	{ 
-		"Hazel" 
+		"Hazel"
 	}
 
 	filter "system:windows"

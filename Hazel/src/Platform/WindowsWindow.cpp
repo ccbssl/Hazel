@@ -15,16 +15,24 @@ namespace Hazel {
 		Init(props);
 	}
 
+	WindowsWindow::~WindowsWindow()
+	{
+		Shutdown();
+	}
+
 	void WindowsWindow::Init(const WindowProps& props)
 	{
 		m_Date.Title = props.Title;
 		m_Date.Width = props.Width;
 		m_Date.Height = props.Height;
 
+		HZ_CORE_INFO("Creating window{0}({1},{2})",
+			props.Title, props.Width, props.Height);
+
 		if (!s_GLFWInitialized)
 		{
 			int success = glfwInit();
-			//HZ_CORE_ASSERT
+			HZ_CORE_ASSERT(success, "Counld not intialize GLfW!");
 			s_GLFWInitialized = true;
 		}
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height,
@@ -33,7 +41,6 @@ namespace Hazel {
 		glfwSetWindowUserPointer(m_Window, &m_Date);
 		SetVSync(true);
 	}
-
 
 	void WindowsWindow::Shutdown()
 	{
@@ -60,5 +67,4 @@ namespace Hazel {
 		return m_Date.VSync;
 	}
 
-	
 }
