@@ -1,6 +1,10 @@
 #include"hzpch.h"
 #include"WindowsWindow.h"
 
+#include"Hazel/Events/KeyEvent.h"
+#include"Hazel/Events/MouseEvent.h"
+#include"Hazel/Events/ApplicationEvent.h"
+
 namespace Hazel {
 
 	static bool s_GLFWInitialized = false;
@@ -40,6 +44,23 @@ namespace Hazel {
 		glfwMakeContextCurrent(m_Window);
 		glfwSetWindowUserPointer(m_Window, &m_Date);
 		SetVSync(true);
+		//set GLFW callbacks
+		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
+		{
+				WindowDate& date = *(WindowDate*)glfwGetWindowUserPointer(window);
+				date.Width = width;
+				date.Height = height;
+
+				WindowResizeEvent event(width, height);
+				date.EventCallback(event);	
+		});
+
+		glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window)
+		{
+			WindowDate& date = *(WindowDate*)glfwGetWindowUserPointer(window);
+
+		});
+
 	}
 
 	void WindowsWindow::Shutdown()
