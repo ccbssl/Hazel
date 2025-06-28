@@ -45,8 +45,6 @@ namespace Hazel {
 			return GetCategoryFlags() & category;
 		}
 		bool m_Handled = false;
-
-
 	};
 
 	class EventDispatcher
@@ -76,7 +74,8 @@ namespace Hazel {
 		return os << e.ToString();
 	}
 
-	inline std::string format_as(const Event& e) {
+	inline std::string format_as(const Event& e) 
+	{
 		return e.ToString();
 	}
 }

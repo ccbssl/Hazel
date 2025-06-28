@@ -11,7 +11,8 @@ namespace Hazel {
 	Application::Application()
 	{
 		m_Window = std::unique_ptr<Window>(Window::Create());
-		//bind build new obj about func,pla1 is first para
+	//bind build new obj about func,pla1 is first para,"this" is obj call func
+	//EventCallbackFn is func<void(Event&)>;
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 	}
 
@@ -42,5 +43,4 @@ namespace Hazel {
 		m_Running = false;
 		return true;
 	}
-
 }
